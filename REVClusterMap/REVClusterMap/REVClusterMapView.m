@@ -195,8 +195,7 @@
     
     if( [self mapViewDidZoom] )
     {
-        [super removeAnnotations:self.annotations];
-        self.showsUserLocation = self.showsUserLocation;
+        [super removeAnnotations:[self.annotations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"!(self isKindOfClass: %@)", [MKUserLocation class]]]];
     }
     
     NSArray *add = [REVClusterManager clusterAnnotationsForMapView:self forAnnotations:annotationsCopy blocks:self.blocks minClusterLevel:self.minimumClusterLevel];
